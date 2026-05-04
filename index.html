@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Expense Tracker Pro</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* ===== BASIC ===== */
+body {
+    font-family: Arial;
+    background: #f4f6fb;
+    margin: 0;
+    animation: fadeIn 0.6s ease-in;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* ===== HEADER ===== */
+.header {
+    background: #6c5ce7;
+    color: white;
+    padding: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header button {
+    margin-left: 10px;
+}
+
+/* ===== CARDS ===== */
+.cards {
+    display: flex;
+    gap: 10px;
+}
+
+.card {
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.balance { background: #6c5ce7; }
+.income { background: #00b894; }
+.expense { background: #d63031; }
+
+/* ===== FORM ===== */
+.form input, .form select {
+    padding: 8px;
+    margin: 5px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    transform: scale(1.03);
+}
+
+/* ===== BUTTON ===== */
+button {
+    padding: 8px 12px;
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: 0.1s;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* ===== LIST ===== */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+
+    animation: slideIn 0.4s ease;
+}
+
+li.income {
+    background: #dff9fb;
+    border-left: 5px solid #00b894;
+}
+
+li.expense {
+    background: #ffe6e6;
+    border-left: 5px solid #d63031;
+}
+
+/* ===== DARK MODE ===== */
+.dark {
+    background: #121212;
+    color: white;
+}
+
+.dark .header {
+    background: #1f1f1f;
+}
+
+.dark .card {
+    background: #2a2a2a;
+}
+
+.dark input, 
+.dark select {
+    background: #2a2a2a;
+    color: white;
+}
+
+.dark li.income {
+    background: #1e3a2f;
+}
+
+.dark li.expense {
+    background: #3a1e1e;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h2>💰 Expense Tracker</h2>
+
+    <div>
+        <button onclick="toggleDarkMode()">🌙</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+</div>
+
+<div class="container">
+
+<!-- CARDS -->
+<div class="cards">
+    <div class="card balance">Balance ₹<span id="balance">0</span></div>
+    <div class="card income">Income ₹<span id="income">0</span></div>
+    <div class="card expense">Expense ₹<span id="expense">0</span></div>
+</div>
+
+<!-- FORM -->
+<div class="form">
+    <input type="text" id="text" placeholder="Description">
+    <input type="number" id="amount" placeholder="Amount">
+    <input type="date" id="date">
+
+    <select id="category">
+        <option>Food</option>
+        <option>Travel</option>
+        <option>Shopping</option>
+        <option>Salary</option>
+    </select>
+
+    <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+    </select>
+
+    <button onclick="addTransaction()">Add</button>
+    <button onclick="clearAll()">Clear</button>
+</div>
+
+<!-- LIST -->
+<ul id="list"></ul>
+
+<!-- CHARTS -->
+<canvas id="pieChart"></canvas>
+<canvas id="barChart"></canvas>
+
+<!-- ML -->
+<h3>Predict Expense</h3>
+<input type="number" id="days">
+<button onclick="getPrediction()">Predict</button>
+
+<h3 id="prediction">Prediction will appear here</h3>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
